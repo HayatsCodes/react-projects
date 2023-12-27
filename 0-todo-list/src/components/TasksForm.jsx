@@ -1,25 +1,52 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlus, FaFolderPlus, FaMinus, FaFolderMinus } from "react-icons/fa";
 
-const TasksForm = ({ groups, addGroup }) => {
+const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
   const [isClickedNewGroup, setIsClickedNewGroup] = useState(false);
   const [isClickedNewTask, setIsClickedNewTask] = useState(false);
   const [newGroup, setNewGroup] = useState("");
-  // const [newTask, setNewTask] = useState("");
+  const [newTask, setNewTask] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState("");
+  const [groupNames, setGroupNames] = useState([])
 
-  const groupNames = [];
-  groups.map((group) => {
-    const groupName = Object.keys(group)[0];
-    groupNames.push(groupName);
-  });
+  // const groupNames = [];
+  // groups.forEach((group) => {
+  //   if (group && Object.keys(group).length > 0) {
+  //     const groupName = Object.keys(group)[0];
+  //     // isGroupClicked[groupName] = false
+  //     groupNames.push(groupName);
+  //   }
+  // });
+
+  useEffect(() => {
+    let allGroupNames = []
+    groups.forEach((group) => {
+      if (group && Object.keys(group).length > 0) {
+        const groupName = Object.keys(group)[0];
+        allGroupNames.push(groupName)
+      }
+    });
+    setGroupNames(allGroupNames);
+    if (!selectedGroup) {
+      setSelectedGroup(allGroupNames[0])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groups])
 
   const createGroup = (event) => {
     event.preventDefault()
     let group = {}
     group[newGroup] = []
-    setNewGroup('')
+    updateIsGroupClicked(newGroup)
     addGroup(group)
+    setNewGroup('')
+  }
+
+  const createTask = (event) => {
+    event.preventDefault()
+    addTask(selectedGroup, newTask)
+    setNewTask('')
   }
 
   const containerStyle = {
@@ -101,9 +128,11 @@ const TasksForm = ({ groups, addGroup }) => {
           </p>
         </div>
         {isClickedNewTask ? (
-          <form>
+          <form onSubmit={createTask}>
             <input
               type="text"
+              value={newTask}
+              onChange={({target}) => setNewTask(target.value)}
               style={{
                 borderRadius: "5px",
                 padding: "5px",
@@ -116,7 +145,7 @@ const TasksForm = ({ groups, addGroup }) => {
               }}
             />
             <label>Choose a group:</label>
-            <select name="groups" id="groups">
+            <select name="groups" id="groups" value={selectedGroup} onChange={({target}) => { console.log(target.value); setSelectedGroup(target.value)}}>
               {groupNames.map((groupName) => {
                 return (
                   <option key={groupName} value={groupName}>
