@@ -10,8 +10,8 @@ const App = () => {
   useEffect(() => {
     const clickData = {};
     const taskData = [
-      { Productivity: ["task1", "task2"] },
-      { Work: ["task1", "task2"] },
+      { Productivity: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
+      { Work: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
     ];
     taskData.forEach((task) => {
       const key = Object.keys(task)[0];
@@ -30,7 +30,7 @@ const App = () => {
       const key = Object.keys(currentGroup)[0];
       if (key === groupName) {
         return {
-          [key]: [...currentGroup[key], task],
+          [key]: [...currentGroup[key], {task, isChecked: false}],
         };
       } else {
         return currentGroup;

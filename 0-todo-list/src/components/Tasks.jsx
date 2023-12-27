@@ -32,7 +32,7 @@ const Tasks = ({ groups, isGroupClicked, updateIsGroupClicked, deleteGroup }) =>
         {groups.map((group) => {
           if (group && Object.keys(group).length > 0) {
             const groupName = Object.keys(group)[0];
-            const tasks = group[groupName];
+            const tasks = (group[groupName]).map(currentTask => currentTask.task);
 
             return (
               <li key={groupName} >
