@@ -75,7 +75,7 @@ const Tasks = ({
                           marginBottom: "15px",
                           marginTop: "15px"
                         }}
-                      >{console.log(`taskIsChecked[index], index: ${(group[groupName][index]).isChecked}, ${index}`)}
+                      >
                         {(group[groupName][index]).isChecked === false ? (
                           <>
                           <FaSquare
@@ -86,7 +86,6 @@ const Tasks = ({
                               borderRadius: "5px",
                             }}
                           />
-                          {console.log(FaSquare)}
                           </>
                         ) : (
                           <>
@@ -99,7 +98,6 @@ const Tasks = ({
                               padding: 0
                             }}
                           />
-                          {console.log(FaCheckSquare)}
                           </>
                         )}
                         {task}

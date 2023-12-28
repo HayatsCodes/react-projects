@@ -10,22 +10,25 @@ const App = () => {
 
   useEffect(() => {
     const clickData = {};
-    const taskData = [
-      { Productivity: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
-      { Work: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
-    ];
-
-    taskData[0].Productivity[0].task
-    taskData.forEach((task) => {
-      const key = Object.keys(task)[0];
-      clickData[key] = false;
-    });
-    setGroups(taskData);
-    setIsGroupClicked(clickData);
+    const storedData = localStorage.getItem('taskData');
+    if (storedData) {
+      const taskData = JSON.parse(storedData)
+      setGroups(taskData);
+      taskData.forEach((task) => {
+        const key = Object.keys(task)[0];
+        clickData[key] = false;
+      });
+      setIsGroupClicked(clickData);
+    }
+    // const taskData = [
+    //   { Productivity: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
+    //   { Work: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
+    // ];
   }, []);
 
   const addGroup = (group) => {
     setGroups(groups.concat(group));
+    localStorage.setItem('taskData', JSON.stringify(groups.concat(group)));
   };
 
   const addTask = (groupName, task) => {
@@ -41,11 +44,12 @@ const App = () => {
     });
 
     setGroups(updatedGroups);
+    localStorage.setItem('taskData', JSON.stringify(updatedGroups));
   };
 
   const updateTask = (groupName, taskIndex) => {
     setGroups((prevGroups) => {
-      return prevGroups.map((currentGroup) => {
+      const updatedGroups = prevGroups.map((currentGroup) => {
         const key = Object.keys(currentGroup)[0];
         if (key === groupName) {
           return {
@@ -61,8 +65,13 @@ const App = () => {
           return currentGroup;
         }
       });
+  
+      localStorage.setItem('taskData', JSON.stringify(updatedGroups));
+  
+      return updatedGroups;
     });
   };
+  
   
 
   const deleteGroup = (groupName) => {
@@ -70,6 +79,7 @@ const App = () => {
       (group) => groupName !== Object.keys(group)[0]
     );
     setGroups(updatedGroups);
+    localStorage.setItem('taskData', JSON.stringify(updatedGroups));
   };
 
   const updateIsGroupClicked = (groupName) => {
