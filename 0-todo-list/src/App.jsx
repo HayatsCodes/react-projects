@@ -6,6 +6,7 @@ import blackHeader from "../assets/black_header.png";
 const App = () => {
   const [groups, setGroups] = useState([]);
   const [isGroupClicked, setIsGroupClicked] = useState({}); // store in localStorage
+  // const [isTaskChecked, setIsTaskChecked] = useState({}); // store in localStorage
 
   useEffect(() => {
     const clickData = {};
@@ -13,6 +14,8 @@ const App = () => {
       { Productivity: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
       { Work: [{task: "task1", isChecked: false}, {task: "task2", isChecked: false}] },
     ];
+
+    taskData[0].Productivity[0].task
     taskData.forEach((task) => {
       const key = Object.keys(task)[0];
       clickData[key] = false;
@@ -40,6 +43,28 @@ const App = () => {
     setGroups(updatedGroups);
   };
 
+  const updateTask = (groupName, taskIndex) => {
+    setGroups((prevGroups) => {
+      return prevGroups.map((currentGroup) => {
+        const key = Object.keys(currentGroup)[0];
+        if (key === groupName) {
+          return {
+            [key]: currentGroup[key].map((task, index) => {
+              if (index === taskIndex) {
+                return { ...task, isChecked: !task.isChecked };
+              } else {
+                return task;
+              }
+            }),
+          };
+        } else {
+          return currentGroup;
+        }
+      });
+    });
+  };
+  
+
   const deleteGroup = (groupName) => {
     const updatedGroups = groups.filter(
       (group) => groupName !== Object.keys(group)[0]
@@ -64,16 +89,17 @@ const App = () => {
   };
 
 
-  const containerStyle = { fontFamily: "'Inter', sans-serif" };
+  const containerStyle = { fontFamily: "'Inter', sans-serif"};
   const h1Style = { textAlign: "center" };
 
   return (
     <div style={containerStyle}>
       <img
         src={blackHeader}
-        style={{ width: "100%", objectFit: "cover", objectPosition: "center" }}
+        style={{ width: "100%"}}
         alt=""
       />
+      <div style={{width: "80%", maxWidth: "600px", margin: "0 auto" }}>
       <h1 style={h1Style}>To-Do App</h1>
       <TasksForm
         groups={groups}
@@ -86,7 +112,10 @@ const App = () => {
         isGroupClicked={isGroupClicked}
         updateIsGroupClicked={updateIsGroupClicked}
         deleteGroup={deleteGroup}
+        updateTask={updateTask}
       />
+      </div>
+      
     </div>
   );
 };

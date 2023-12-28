@@ -8,46 +8,39 @@ const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
   const [newGroup, setNewGroup] = useState("");
   const [newTask, setNewTask] = useState("");
   const [selectedGroup, setSelectedGroup] = useState("");
-  const [groupNames, setGroupNames] = useState([])
-
-  // const groupNames = [];
-  // groups.forEach((group) => {
-  //   if (group && Object.keys(group).length > 0) {
-  //     const groupName = Object.keys(group)[0];
-  //     // isGroupClicked[groupName] = false
-  //     groupNames.push(groupName);
-  //   }
-  // });
+  const [groupNames, setGroupNames] = useState([]);
 
   useEffect(() => {
-    let allGroupNames = []
+    let allGroupNames = [];
     groups.forEach((group) => {
       if (group && Object.keys(group).length > 0) {
         const groupName = Object.keys(group)[0];
-        allGroupNames.push(groupName)
+        allGroupNames.push(groupName);
       }
     });
     setGroupNames(allGroupNames);
     if (!selectedGroup) {
-      setSelectedGroup(allGroupNames[0])
+      setSelectedGroup(allGroupNames[0]);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groups])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [groups]);
 
   const createGroup = (event) => {
-    event.preventDefault()
-    let group = {}
-    group[newGroup] = []
-    updateIsGroupClicked(newGroup)
-    addGroup(group)
-    setNewGroup('')
-  }
+    event.preventDefault();
+    let group = {};
+    group[newGroup] = [];
+    if (newGroup) {
+      updateIsGroupClicked(newGroup);
+      addGroup(group);
+      setNewGroup("");
+    }
+  };
 
   const createTask = (event) => {
-    event.preventDefault()
-    addTask(selectedGroup, newTask)
-    setNewTask('')
-  }
+    event.preventDefault();
+    addTask(selectedGroup, newTask);
+    setNewTask("");
+  };
 
   const containerStyle = {
     marginTop: "10px",
@@ -80,7 +73,7 @@ const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
           <p
             style={{ marginLeft: "1rem", fontSize: "20px", userSelect: "none" }}
           >
-            Add New Group
+            New Group
           </p>
         </div>
         {isClickedNewGroup ? (
@@ -89,29 +82,37 @@ const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
               type="text"
               value={newGroup}
               onChange={({ target }) => setNewGroup(target.value)}
+              placeholder="Enter new group..."
               style={{
+                backgroundColor: "rgb(229, 229, 229)",
                 borderRadius: "5px",
                 padding: "5px",
                 width: "50%",
                 maxWidth: "400px",
                 outline: "none",
+                borderBottom: "3px solid rgb(0,0,0)",
+                borderRight: "none",
+                borderLeft: "none",
+                borderTop: "none",
                 marginRight: "5px",
                 height: "25px",
                 fontSize: "1.2rem",
+                lineHeight: "1.5",
               }}
             />
-            <button
+            {/* <button
               style={{
                 borderRadius: "5px",
                 outline: "none",
                 height: "39px",
                 width: "60px",
-                backgroundColor: "black",
+                backgroundColor: "rgb(65, 63, 63)",
                 color: "white",
+                marginLeft: "5px"
               }}
             >
               Add
-            </button>
+            </button> */}
           </form>
         ) : (
           ""
@@ -124,7 +125,7 @@ const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
           <p
             style={{ marginLeft: "1rem", fontSize: "20px", userSelect: "none" }}
           >
-            Add New Task
+            New Task
           </p>
         </div>
         {isClickedNewTask ? (
@@ -132,29 +133,65 @@ const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
             <input
               type="text"
               value={newTask}
-              onChange={({target}) => setNewTask(target.value)}
+              placeholder="Write task..."
+              onChange={({ target }) => setNewTask(target.value)}
               style={{
+                backgroundColor: "rgb(229, 229, 229)",
                 borderRadius: "5px",
                 padding: "5px",
                 width: "50%",
                 maxWidth: "400px",
                 outline: "none",
+                borderBottom: "3px solid rgb(0,0,0)",
+                borderRight: "none",
+                borderLeft: "none",
+                borderTop: "none",
                 marginRight: "5px",
                 height: "25px",
                 fontSize: "1.2rem",
+                lineHeight: "1.5",
               }}
             />
-            <label>Choose a group:</label>
-            <select name="groups" id="groups" value={selectedGroup} onChange={({target}) => { console.log(target.value); setSelectedGroup(target.value)}}>
-              {groupNames.map((groupName) => {
-                return (
-                  <option key={groupName} value={groupName}>
-                    {groupName}
-                  </option>
-                );
-              })}
-            </select>
-            <button
+            <br></br>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                margin: "10px 0 20px 0",
+                gap: "10px",
+                fontSize: "1.2rem",
+              }}
+            >
+              <label style={{fontWeight:"bold"}}>Choose a group:</label>
+              <select
+                name="groups"
+                id="groups"
+                value={selectedGroup}
+                onChange={({ target }) => {
+                  console.log(target.value);
+                  setSelectedGroup(target.value);
+                }}
+                style={{
+                  backgroundColor: "rgb(229, 229, 229)",
+                  borderRadius: "5px",
+                  padding: "5px",
+                  outline: "none",
+                  marginRight: "5px",
+                  fontSize: "1rem",
+                  lineHeight: "1.5",
+                }}
+              >
+                {groupNames.map((groupName) => {
+                  return (
+                    <option key={groupName} value={groupName} style={{fontSize: "1rem"}}>
+                      {groupName}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            {/* <button
               type="submit"
               style={{
                 borderRadius: "5px",
@@ -166,7 +203,7 @@ const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
               }}
             >
               Add
-            </button>
+            </button> */}
           </form>
         ) : (
           ""
@@ -176,4 +213,4 @@ const TasksForm = ({ groups, addGroup, addTask, updateIsGroupClicked }) => {
   );
 };
 
-export default TasksForm;
+export default TasksForm
