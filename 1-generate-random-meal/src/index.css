@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&family=Single+Day&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eff6ff;
+    font-family: 'Single Day', cursive;
+    color: #60a5fa;
+    position: relative;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    /* padding: 0 4px; */
+    text-align: center;
+    margin-top: 1.2rem;
+}
+
+.logo {
+    font-family: 'Lobster Two', cursive;
+    font-weight: bold;
+    color: #4b5563;
+    margin-bottom: .2rem;
+}
+
+.headline {
+    /* color: #93c5fd; */
+    font-size: 1.05rem;
+}
+
+.card {
+    width: 100%;
+    /* border: 1px solid red; */
+    margin-top: 1.2rem;
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    background-color: #f3f4f6;
+}
+
+.meal-name {
+    color: #4b5563;
+    font-weight: bold;
+    margin-bottom: .5rem;
+}
+
+.meal-description {
+    font-size: 1.05rem;
+}
+
+.meal-image-container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+
+.meal-image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    object-fit: cover;
+}
+
+.meal-ingredients-container {
+    margin: 1rem 0;
+}
+
+.meal-ingredients-header {
+    color: #4b5563;
+    margin-bottom: 1rem;
+    text-align: start;
+    margin-left: 10%;
+    font-size: 1.3rem;
+}
+
+.meal-ingredients-lists {
+    width: 69%;
+    margin: 0 auto;
+    text-align: start;
+    font-size: 1.15rem;
+}
+
+.meal-ingredients-lists > li {
+    width: 100%;
+}
+
+.meal-youtube-btn {
+    background-color: #dbeafe;
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: .5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.meal-youtube-btn > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    text-decoration: none;
+    color: #4b5563;
+    text-align: center;
+}
+
+.new-meal-btn {
+    margin: 1rem 0;
+    width: 100%;
+    padding: 8px;
+    border-radius: .5rem;
+    margin-top: 2rem;
+    margin-bottom: 8rem;
+    outline:  none;
+    border: 1px solid transparent;
+    background-color: #60a5fa;
+    font-family: 'Single Day', cursive;
+    font-size: 1.15rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #374151;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+footer {
+    width: 100%;
+    padding: 1em;
+    background: #000;
+    color: #60a5fa;
+    font-size: 1.5rem;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    font-family: 'Courgette', cursive;
+    /* background-color: #f3f4f6; */
+    font-size: .8rem;
+  }
+
+  footer > span {
+    color: red;
+  }
+
+  footer > a {
+    color: #60a5fa;
+  }
+
+@media screen and (min-width: 600px) {
+    .meal-ingredients-lists {
+        width: 72%;
+    }
+
+    .meal-ingredients-lists, .meal-youtube-btn, .new-meal-btn {
+        font-size: 1.25rem;
+    }
+
+    footer {
+        font-size: 1rem;
+    }
+
+}
