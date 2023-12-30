@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@700&family=Single+Day&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 * {
     margin: 0;
     padding: 0;
@@ -64,6 +67,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     object-fit: cover;
+    max-height: 300px;
 }
 
 .meal-ingredients-container {
