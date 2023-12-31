@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
-import { CiYoutube } from "react-icons/ci";
-import MealCardLoader from "./MealCardLoader";
+import { CiYoutube, CiRead } from "react-icons/ci";
 
-const MealCard = ({ meal, loading }) => {
-  // Check if meal is available and has the necessary information
+import MealCardLoader from "./MealCardLoader";
+import ErrorCard from "./ErrorCard";
+
+const MealCard = ({ meal, loading, updateModalVisibility, error }) => {
   if (loading) {
-    // Return null if meal is not available
     return <MealCardLoader />;
+  }
+
+  if (error) {
+    return <ErrorCard />
   }
 
   const {
@@ -71,10 +75,20 @@ const MealCard = ({ meal, loading }) => {
       <div className="meal-ingredients-container">
         <h3 className="meal-ingredients-header">Ingredients</h3>
         <ul className="meal-ingredients-lists" aria-label="Ingredients">
-            {ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+            {ingredients.map((ingredient, index) => <li key={index} className="list-disc">{ingredient}</li>)}
         </ul>
       </div>
-      <div className="meal-youtube-btn">
+      <div className="meal-btn cursor-pointer" onClick={(event) => {
+        event.preventDefault()
+        updateModalVisibility()
+        }}>
+        <a type="button">
+          <CiRead />
+          <span>Read cooking instructions</span>
+        </a>
+      </div>
+      <p className="mb-1 -mt-2 md:font-bold md:text-xl">Or</p>
+      <div className="meal-btn">
         <a href={strYoutube} rel="noreferrer" target="_blank">
           <CiYoutube />
           <span>Learn to cook on YouTube</span>

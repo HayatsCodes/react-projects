@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { getMeal } from '../services/services';
 
 const useFetchMeal = () => {
-  const [meal, setMeal] = useState({});
+  const [meal, setMeal] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -11,7 +12,7 @@ const useFetchMeal = () => {
       const mealData = await getMeal();
       setMeal(mealData);
     } catch (error) {
-      console.error(error)
+      setError(error);
     } finally {
       setLoading(false);
     }
@@ -25,7 +26,7 @@ const useFetchMeal = () => {
     fetchData();
   };
 
-  return { meal, loading, fetchMeal };
+  return { meal, loading, error, fetchMeal };
 };
 
 export default useFetchMeal;
