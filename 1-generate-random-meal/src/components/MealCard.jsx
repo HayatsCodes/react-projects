@@ -10,7 +10,7 @@ const MealCard = ({ meal, loading, updateModalVisibility, error }) => {
   }
 
   if (error) {
-    return <ErrorCard />
+    return <ErrorCard />;
   }
 
   const {
@@ -61,7 +61,7 @@ const MealCard = ({ meal, loading, updateModalVisibility, error }) => {
     strIngredient18,
     strIngredient19,
     strIngredient20,
-  ].filter(ingredient => ingredient)
+  ].filter((ingredient) => ingredient);
 
   return (
     <div className="card">
@@ -75,25 +75,38 @@ const MealCard = ({ meal, loading, updateModalVisibility, error }) => {
       <div className="meal-ingredients-container">
         <h3 className="meal-ingredients-header">Ingredients</h3>
         <ul className="meal-ingredients-lists" aria-label="Ingredients">
-            {ingredients.map((ingredient, index) => <li key={index} className="list-disc">{ingredient}</li>)}
+          {ingredients.map((ingredient, index) => (
+            <li key={index} className="list-disc">
+              {ingredient}
+            </li>
+          ))}
         </ul>
       </div>
-      <div className="meal-btn cursor-pointer" onClick={(event) => {
-        event.preventDefault()
-        updateModalVisibility()
-        }}>
+      <div
+        className="meal-btn cursor-pointer"
+        onClick={(event) => {
+          event.preventDefault();
+          updateModalVisibility();
+        }}
+      >
         <a type="button">
           <CiRead />
           <span>Read cooking instructions</span>
         </a>
       </div>
-      <p className="mb-1 -mt-2 md:font-bold md:text-xl">Or</p>
-      <div className="meal-btn">
-        <a href={strYoutube} rel="noreferrer" target="_blank">
-          <CiYoutube />
-          <span>Learn to cook on YouTube</span>
-        </a>
-      </div>
+      {strYoutube ? (
+        <>
+          <p className="mb-1 -mt-2 md:font-bold md:text-xl">Or</p>
+          <div className="meal-btn">
+            <a href={strYoutube} rel="noreferrer" target="_blank">
+              <CiYoutube />
+              <span>Learn to cook on YouTube</span>
+            </a>
+          </div>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
