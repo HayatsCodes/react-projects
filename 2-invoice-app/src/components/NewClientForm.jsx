@@ -8,7 +8,6 @@ const NewClientForm = () => {
   const dispatch = useDispatch();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const isClickedNewClient = useSelector((state) => state.isClickedNewClient);
@@ -20,13 +19,11 @@ const NewClientForm = () => {
         createClient({
           fullName,
           email,
-          profilePicture,
           phoneNumber,
         })
       );
       setFullName("");
       setEmail("");
-      setProfilePicture("");
       setPhoneNumber("");
 
       dispatch(toggleIsClickedNewClient())
@@ -44,6 +41,7 @@ const NewClientForm = () => {
       </div>
       {isClickedNewClient ? (
         <form onSubmit={handleSubmit}>
+            <h2>Client Information</h2>
           <label>
             Full Name:
             <input
@@ -68,15 +66,6 @@ const NewClientForm = () => {
               type="tel"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Profile Picture:
-            <input
-              type="file"
-              value={profilePicture}
-              onChange={(e) => setProfilePicture(e.target.value)}
             />
           </label>
           <br />

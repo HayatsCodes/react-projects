@@ -6,11 +6,13 @@ import App from "./App.jsx";
 import "./index.css";
 import clientsReducer from "./reducers/clientsReducer.js";
 import isNewClientReducer from "./reducers/isNewClientReducer.js";
+import itemsReducer from "./reducers/itemsReducer.js";
 
 const store = configureStore({
   reducer: {
     clients: clientsReducer,
-    isClickedNewClient: isNewClientReducer
+    isClickedNewClient: isNewClientReducer,
+    items: itemsReducer,
   },
 });
 
